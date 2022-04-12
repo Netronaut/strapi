@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  strapi:
+    build:
+      context: .
+      target: dev
+    volumes:
+      - "./src:/srv/app/src"
+      - "./config:/srv/app/config"
+      - "./database:/srv/app/database"
+      - "./public:/srv/app/public"
+    ports:
+      - "1337:1337"
+    env_file:
+      - .env
