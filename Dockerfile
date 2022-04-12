@@ -51,8 +51,7 @@ RUN apk --no-cache add --virtual native-deps \
   g++ gcc libgcc libstdc++ linux-headers make python3 && \
   ln -s /usr/bin/python3 /usr/bin/python && \
   ln -s /usr/bin/pip3 /usr/bin/pip && \
-  npm install --quiet node-gyp -g && \
-  npm ci --production --quiet && \
+  npm ci --production && \
   apk del native-deps
 
 RUN NODE_ENV=production npm run build

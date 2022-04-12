@@ -9,9 +9,9 @@
     "start": "strapi start",
     "build": "strapi build",
     "strapi": "strapi",
-    "docker:start": "docker compose up --build strapi",
+    "docker:start": "docker compose up -d strapi",
     "docker:backup": "docker compose exec strapi sh -c 'sqlite .tmp/data.db \".dump\"' > seed.sql",
-    "docker:restore": "mkdir .tmp && cat seed.sql | sqlite .tmp/data.db"
+    "docker:restore": "echo \"TODO: implement\" `# mkdir .tmp && cat seed.sql | sqlite .tmp/data.db`"
   },
   "dependencies": {
     "@strapi/plugin-i18n": "4.1.7",
