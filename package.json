@@ -1,17 +1,14 @@
 {
-  "name": "strapi",
+  "name": "@netronaut/strapi",
   "private": true,
-  "version": "0.1.0",
-  "description": "A Strapi application",
+  "version": "4.1.7",
+  "description": "Base dockerfile for strapi",
   "type": "commonjs",
   "scripts": {
     "dev": "strapi develop",
     "start": "strapi start",
     "build": "strapi build",
-    "strapi": "strapi",
-    "docker:start": "docker compose up -d strapi",
-    "docker:backup": "docker compose exec strapi sh -c 'sqlite .tmp/data.db \".dump\"' > seed.sql",
-    "docker:restore": "echo \"TODO: implement\" `# mkdir .tmp && cat seed.sql | sqlite .tmp/data.db`"
+    "strapi": "strapi"
   },
   "dependencies": {
     "@strapi/plugin-i18n": "4.1.7",
@@ -19,14 +16,10 @@
     "@strapi/strapi": "4.1.7",
     "pg": "^8.7.3",
     "sharp": "^0.30.3",
-    "sqlite3": "^4.2.0",
-    "strapi-provider-upload-dos": "4.0.5"
+    "sqlite3": "^4.2.0"
   },
   "author": {
-    "name": "A Strapi developer"
-  },
-  "strapi": {
-    "uuid": "0ed6baa2-cef4-45e2-aa1c-743733a81ce3"
+    "name": "Jakob Hohlfeld <jakob.hohlfeld@netronaut.de>"
   },
   "engines": {
     "node": ">=12.x.x <=16.x.x",
