@@ -2,7 +2,7 @@
   "name": "@netronaut/strapi",
   "private": true,
   "version": "4.1.7",
-  "description": "Base dockerfile for strapi",
+  "description": "Docker image for strapi.io headless CMS",
   "type": "commonjs",
   "scripts": {
     "dev": "strapi develop",
