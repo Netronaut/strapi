@@ -1,75 +1,99 @@
-# netronaut/strapi docker image
+# Docker image for strapi.io headless CMS
 
-## Development
+This Docker image contains a pre-installed version of strapi.io headless CMS.
 
-Use docker compose to run strapi in development.
+Strapi and base dependencies are already installed in `node_modules`.
 
-First, copy `.env.example`:
+Additionally there's sqlite installed to create and restore backups (see [Backup](#backup)).
 
-```bash
-cp .env.example .env
+## Run image
+
+Strapi needs API secrets to run. Provide these via `.env`-file:
+
+```ini
+APP_KEYS=<array of four keys, separated by comma>
+JWT_SECRET=<key>
+API_TOKEN_SALT=<key>
 ```
 
-> ⚠️ TODO: add script to generate JWT and other secrets
-
-Edit all keys and other required environment variables.
-
-Then run the image using docker compose:
+You may generate an `.env` file with api keys using this script:
 
 ```bash
-npm run docker:start
-# docker compose up -d strapi
+node ./generate-api-keys.js > .env
 ```
 
-This will
-
-- mount the directories `./config`, `./database`, `./public` and `./src`,
-- map the standard strapi port `:1337`
-- create a temporary sqlite database inside the container
-- start strapi in watch mode (`strapi develop`)
-
-Strapi will start at `http://localhost:1337`. Open it in the browser and set your admin email address and password.
-
-Once you are finished creating your content model, don't forget to backup the database.
-
-## Backup and restore
-
-Run docker:backup and docker:restore scripts to interact with the database:
+Now run strapi. Don't forget to attach ports and any volume you need:
 
 ```bash
-# backup data to seed.sql
-npm run docker:backup
-
-# restore data from seed.sql
-npm run docker:restore
+docker run --rm --env-file .env --name netronaut_strapi -d -p 1337:1337 netronaut/strapi
 ```
 
-This will populate the file `seed.sql` from the temporary sqlite database.
+Volumes to mount:
 
-## Run in production
+```Dockerfile
+VOLUME /srv/app/config
+VOLUME /srv/app/database
+VOLUME /srv/app/public
+VOLUME /srv/app/src
+```
 
-To run strapi in production, you may want to
+Most of the time you want to mount `/srv/app/src` in order to develop.
 
-- configure a production db server
-- import seed.sql to production db
-- set up an upload provider (for storing media files)
+To extend strapi with extensions and custom configuration, use the `/srv/app/config` volume.
 
-### Configure database
-
-Refer to strapi documentation on how to set up a database client: https://docs.strapi.io/developer-docs/latest/setup-deployment-guides/configurations/required/databases.html
-
-Save your database config in `./config/env/production/database.js`.
-
-### Configure upload provider
-
-Refer to strapi docs for media upload providers like AWS S3: https://docs.strapi.io/developer-docs/latest/plugins/upload.html#using-a-provider
-
-Your upload plugin configuration may well be saved to `./config/env/production/plugins.js`.
-
-### Production image
-
-The production image produced by `Dockerfile` is a bit smaller (520 instead of 830 MB). Run docker to produce the production-optimized docker image:
+Example:
 
 ```bash
-docker build -t netronaut/strapi:latest --target prod .
+docker run
+  --rm
+  --env-file .env
+  --name netronaut_strapi
+  -p 1337:1337
+  -v `pwd`/src:/srv/app/src
+  -d
+  netronaut/strapi
+```
+
+### Compose file
+
+You may want to use `docker compose` or another CLI to run from a docker-compose.yml like this:
+
+```yml
+version: '3'
+services:
+  strapi:
+    image: netronaut/strapi
+    volumes:
+      - './strapi/src:/srv/app/src'
+      - './strapi/config:/srv/app/config'
+    ports:
+      - 1337:1337
+    env_file:
+      - .env
+```
+
+## Database
+
+This image works with sqlite per default. The data is stored inside the container under `<WORKDIR>/.tmp/data.db`.
+
+You can use sqlite during development. Once you are ready to go to production, you might want to dump the data to an .sql file.
+
+### Backup
+
+Backup data to .sql file:
+
+```bash
+docker exec netronaut_strapi sh -c 'sqlite .tmp/data.db ".dump"' > backup.sql
+```
+
+### Restore
+
+Restore the database from .sql file:
+
+```bash
+docker cp backup.sql netronaut_strapi:/srv/app/backup.sh
+```
+
+```bash
+docker exec netronaut_strapi sh -c 'sqlite .tmp/data.db ".read backup.sh"'
 ```
