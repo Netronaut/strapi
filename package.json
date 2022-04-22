@@ -25,5 +25,9 @@
     "node": ">=12.x.x <=16.x.x",
     "npm": ">=6.0.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "crypto": "^1.0.1",
+    "lodash.template": "^4.5.0"
+  }
 }
