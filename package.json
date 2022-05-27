@@ -16,7 +16,7 @@
     "@strapi/strapi": "4.1.7",
     "pg": "^8.7.3",
     "sharp": "^0.30.3",
-    "sqlite3": "^4.2.0"
+    "sqlite3": "^5.0.8"
   },
   "author": {
     "name": "Jakob Hohlfeld <jakob.hohlfeld@netronaut.de>"
