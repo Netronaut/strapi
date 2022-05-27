@@ -91,9 +91,9 @@ docker exec netronaut_strapi sh -c 'sqlite .tmp/data.db ".dump"' > backup.sql
 Restore the database from .sql file:
 
 ```bash
-docker cp backup.sql netronaut_strapi:/srv/app/backup.sh
+docker cp backup.sql netronaut_strapi:/srv/app/backup.sql
 ```
 
 ```bash
-docker exec netronaut_strapi sh -c 'sqlite .tmp/data.db ".read backup.sh"'
+docker exec netronaut_strapi sh -c 'sqlite .tmp/data.db ".read backup.sql"'
 ```
