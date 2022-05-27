@@ -1,7 +1,7 @@
 {
   "name": "@netronaut/strapi",
   "private": true,
-  "version": "4.1.7",
+  "version": "4.1.12",
   "description": "Docker image for strapi.io headless CMS",
   "type": "commonjs",
   "scripts": {
@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@strapi/plugin-i18n": "4.1.12",
-    "@strapi/plugin-users-permissions": "4.1.12",
     "@strapi/strapi": "4.1.12",
     "pg": "^8.7.3",
     "sharp": "^0.30.5",
