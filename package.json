@@ -3,6 +3,14 @@
   "private": true,
   "version": "4.1.12",
   "description": "Docker image for strapi.io headless CMS",
+  "author": {
+    "name": "Jakob Hohlfeld <jakob.hohlfeld@netronaut.de>"
+  },
+  "engines": {
+    "node": ">=12.x.x <=16.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT",
   "type": "commonjs",
   "scripts": {
     "dev": "strapi develop",
@@ -17,14 +25,6 @@
     "sharp": "^0.30.5",
     "sqlite3": "^5.0.8"
   },
-  "author": {
-    "name": "Jakob Hohlfeld <jakob.hohlfeld@netronaut.de>"
-  },
-  "engines": {
-    "node": ">=12.x.x <=16.x.x",
-    "npm": ">=6.0.0"
-  },
-  "license": "MIT",
   "devDependencies": {
     "crypto": "^1.0.1",
     "lodash.template": "^4.5.0"
