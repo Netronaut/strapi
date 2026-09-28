@@ -20,9 +20,9 @@
   },
   "dependencies": {
     "@strapi/plugin-i18n": "4.1.12",
-    "@strapi/strapi": "4.1.12",
+    "@strapi/strapi": "5.55.1",
     "pg": "^8.7.3",
-    "sharp": "^0.30.5",
+    "sharp": "^0.35.5",
     "sqlite3": "^5.0.8"
   },
   "devDependencies": {
